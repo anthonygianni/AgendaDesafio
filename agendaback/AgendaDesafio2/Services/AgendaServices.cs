@@ -33,7 +33,7 @@ namespace AgendaDesafio2.Services
         {
             // validate
             if (_context.Agendas.Any(x => x.Email == model.Email))
-                throw new Exception("User with the email '" + model.Email + "' already exists");
+                throw new Exception("Usuario com o email: '" + model.Email + "' já existe.");
 
             // map model to new user object
             var user = _mapper.Map<Agenda>(model);
@@ -50,15 +50,13 @@ namespace AgendaDesafio2.Services
 
             // validate
             if (model.Email != user.Email && _context.Agendas.Any(x => x.Email == model.Email))
-                throw new Exception("User with the email '" + model.Email + "' already exists");
+                throw new Exception("Usuario com o email: '" + model.Email + "' já existe.");
 
-            
-
-            // copy model to user and save
-            _mapper.Map(model, user);
-            /*user.Nome = model.Nome;
+            //_mapper.Map(userModel, user);
+            user.Nome = model.Nome;
             user.Email = model.Email;
-            user.Telefone = model.Telefone;*/
+            user.Telefone = model.Telefone;
+
             _context.Agendas.Update(user);
             _context.SaveChanges();
         }
@@ -72,7 +70,7 @@ namespace AgendaDesafio2.Services
         private Agenda getAgenda(int id)
         {
             var agenda = _context.Agendas.Find(id);
-            if (agenda == null) throw new KeyNotFoundException("User not found");
+            if (agenda == null) throw new KeyNotFoundException("User não encontrado.");
             return agenda;
         }
 

@@ -206,8 +206,6 @@ D:\Projetos\AgendaDesafio\AgendaDesafio\agendaback\AgendaDesafio2\obj\Debug\net6
 D:\Projetos\AgendaDesafio\AgendaDesafio\agendaback\AgendaDesafio2\obj\Debug\net6.0\AgendaDesafio2.MvcApplicationPartsAssemblyInfo.cs
 D:\Projetos\AgendaDesafio\AgendaDesafio\agendaback\AgendaDesafio2\obj\Debug\net6.0\AgendaDesafio2.MvcApplicationPartsAssemblyInfo.cache
 D:\Projetos\AgendaDesafio\AgendaDesafio\agendaback\AgendaDesafio2\obj\Debug\net6.0\AgendaDesafio2.sourcelink.json
-D:\Projetos\AgendaDesafio\AgendaDesafio\agendaback\AgendaDesafio2\obj\Debug\net6.0\AgendaDesafio2.csproj.Fody.CopyLocal.cache
-D:\Projetos\AgendaDesafio\AgendaDesafio\agendaback\AgendaDesafio2\obj\Debug\net6.0\AgendaDesafio2.csproj.Fody.RuntimeCopyLocal.cache
 D:\Projetos\AgendaDesafio\AgendaDesafio\agendaback\AgendaDesafio2\obj\Debug\net6.0\staticwebassets.build.json
 D:\Projetos\AgendaDesafio\AgendaDesafio\agendaback\AgendaDesafio2\obj\Debug\net6.0\staticwebassets.development.json
 D:\Projetos\AgendaDesafio\AgendaDesafio\agendaback\AgendaDesafio2\obj\Debug\net6.0\staticwebassets\msbuild.AgendaDesafio2.Microsoft.AspNetCore.StaticWebAssets.props
@@ -222,3 +220,5 @@ D:\Projetos\AgendaDesafio\AgendaDesafio\agendaback\AgendaDesafio2\obj\Debug\net6
 D:\Projetos\AgendaDesafio\AgendaDesafio\agendaback\AgendaDesafio2\obj\Debug\net6.0\AgendaDesafio2.pdb
 D:\Projetos\AgendaDesafio\AgendaDesafio\agendaback\AgendaDesafio2\obj\Debug\net6.0\AgendaDesafio2.genruntimeconfig.cache
 D:\Projetos\AgendaDesafio\AgendaDesafio\agendaback\AgendaDesafio2\obj\Debug\net6.0\ref\AgendaDesafio2.dll
+D:\Projetos\AgendaDesafio\AgendaDesafio\agendaback\AgendaDesafio2\obj\Debug\net6.0\AgendaDesafio2.csproj.Fody.CopyLocal.cache
+D:\Projetos\AgendaDesafio\AgendaDesafio\agendaback\AgendaDesafio2\obj\Debug\net6.0\AgendaDesafio2.csproj.Fody.RuntimeCopyLocal.cache

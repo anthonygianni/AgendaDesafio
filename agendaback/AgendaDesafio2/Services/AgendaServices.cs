@@ -1,6 +1,8 @@
 ﻿using AgendaDesafioAPI.Data;
 using AgendaDesafioAPI.Models;
 using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace AgendaDesafio2.Services
@@ -18,54 +20,61 @@ namespace AgendaDesafio2.Services
 
         }
 
-        public IEnumerable<Agenda> GetAll()
+        public async Task<ActionResult<IEnumerable<Agenda>>> GetAllAsync()
         {
-            return _context.Agendas;
+            return await _context.Agendas.ToListAsync();
         }
 
-        public Agenda GetById(int id)
+        public async Task<Agenda> GetByIdAsync(int id)
         {
-            return getAgenda(id);
+            return await _context.Agendas.FindAsync(id);
         }
 
 
-        public void Create(Agenda model)
+        public async Task CreateAsync(Agenda model)
         {
             // validate
-            if (_context.Agendas.Any(x => x.Email == model.Email))
+            if (await _context.Agendas.AnyAsync(x => x.Email == model.Email))
                 throw new Exception("Usuario com o email: '" + model.Email + "' já existe.");
 
             // map model to new user object
             var user = _mapper.Map<Agenda>(model);
 
-            
             // save user
-            _context.Agendas.Add(user);
-            _context.SaveChanges();
+            await _context.Agendas.AddAsync(user);
+            await _context.SaveChangesAsync();
         }
 
-        public void Update(int id, Agenda model)
+        public async Task UpdateAsync(int id, Agenda model)
         {
-            var user = getAgenda(id);
+            var user = await _context.Agendas.FindAsync(id);
+            if (user == null)
+            {
+                throw new Exception("Agenda não encontrada.");
+            }
 
-            // validate
-            if (model.Email != user.Email && _context.Agendas.Any(x => x.Email == model.Email))
+            if (model.Email != user.Email && await _context.Agendas.AnyAsync(x => x.Email == model.Email))
                 throw new Exception("Usuario com o email: '" + model.Email + "' já existe.");
 
-            //_mapper.Map(userModel, user);
+            //_mapper.Map(model, user);
             user.Nome = model.Nome;
             user.Email = model.Email;
             user.Telefone = model.Telefone;
-
-            _context.Agendas.Update(user);
-            _context.SaveChanges();
+            // Informar ao contexto que a entidade foi modificada
+            _context.Entry(user).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
         }
 
-        public void Delete(int id)
+        public async Task DeleteAsync(int id)
         {
-            var user = getAgenda(id);
+            var user = await _context.Agendas.FindAsync(id);
+            if (user == null)
+            {
+                throw new Exception("Agenda não encontrada.");
+            }
+
             _context.Agendas.Remove(user);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
         private Agenda getAgenda(int id)
         {

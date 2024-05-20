@@ -1,16 +1,17 @@
 ﻿using AgendaDesafioAPI.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace AgendaDesafio2.Services
 {
     public interface IAgendaService
     {
-        
-            IEnumerable<Agenda> GetAll();
-            Agenda GetById(int id);
-            void Create(Agenda model);
-            void Update(int id, Agenda model);
-            void Delete(int id);
-        
+
+            Task<ActionResult<IEnumerable<Agenda>>> GetAllAsync();
+            Task<Agenda> GetByIdAsync(int id);
+            Task CreateAsync(Agenda model);
+            Task UpdateAsync(int id, Agenda model);
+            Task DeleteAsync(int id);
+
 
     }
 }

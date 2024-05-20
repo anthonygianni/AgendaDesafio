@@ -1,8 +1,10 @@
-﻿using AgendaDesafio2.Services;
+﻿
+using AgendaDesafio2.Services;
 using AgendaDesafioAPI.Data;
 using AgendaDesafioAPI.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -27,45 +29,76 @@ namespace AgendaDesafioAPI.Controllers
         // GET: api/<AgendaController>
         [HttpGet]
 
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAllAsync()
         {
-            var agendas=_agendaService.GetAll();
+            var agendas = await _agendaService.GetAllAsync();  // Aguarde a conclusão da tarefa
+
+            if (agendas == null)
+            {
+                return NotFound();
+            }
 
             return Ok(agendas);
-            //return Ok(_context.Agendas);
         }
 
         // GET api/<AgendaController>/5
         [HttpGet("{id}")]
-        public IActionResult GetById(int id)
+        public async Task<ActionResult<Agenda>> GetByIdAsync(int id)
         {
-            var agendas=_agendaService.GetById(id);
-            return Ok(agendas);
-           // var agenda=_context.Agendas.FirstOrDefault(a => a.Id == id);    
-           // if (agenda == null) return BadRequest("Não encontrado");
+            var agenda = await _agendaService.GetByIdAsync(id);
 
-           // return Ok(agenda);
+            if (agenda == null)
+            {
+                return NotFound();  // Retorna 404 se a agenda não for encontrada
+            }
+
+            return Ok(agenda);  // Retorna 200 com os dados da agenda
         }
 
         [HttpPost]
-        public IActionResult Create(Agenda model)
+        public async Task<ActionResult> CreateAsync([FromBody] Agenda agendaDto)
         {
-            _agendaService.Create(model);
-            return Ok(new { message = "User created" });
+            var model = _mapper.Map<Agenda>(agendaDto);
+
+            try
+            {
+                await _agendaService.CreateAsync(model);
+                return  Ok("Deu bom");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
         }
 
         [HttpPut("{id}")]
-        public IActionResult Update(int id, Agenda model)
+        public async Task<IActionResult> UpdateAsync(int id, [FromBody] Agenda agendaDto)
         {
-            _agendaService.Update(id, model);
-            return Ok(new { message = "User updated" });
+            var model = _mapper.Map<Agenda>(agendaDto);
+
+            try
+            {
+                await _agendaService.UpdateAsync(id, model);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> DeleteAsync(int id)
         {
-            _agendaService.Delete(id);
-            return Ok(new { message = "User deleted" });
+            try
+            {
+                await _agendaService.DeleteAsync(id);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
         }
     }
 }

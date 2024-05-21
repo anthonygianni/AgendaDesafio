@@ -220,5 +220,3 @@ D:\Projetos\AgendaDesafio\AgendaDesafio\agendaback\AgendaDesafio2\obj\Debug\net6
 D:\Projetos\AgendaDesafio\AgendaDesafio\agendaback\AgendaDesafio2\obj\Debug\net6.0\AgendaDesafio2.pdb
 D:\Projetos\AgendaDesafio\AgendaDesafio\agendaback\AgendaDesafio2\obj\Debug\net6.0\AgendaDesafio2.genruntimeconfig.cache
 D:\Projetos\AgendaDesafio\AgendaDesafio\agendaback\AgendaDesafio2\obj\Debug\net6.0\ref\AgendaDesafio2.dll
-D:\Projetos\AgendaDesafio\AgendaDesafio\agendaback\AgendaDesafio2\obj\Debug\net6.0\AgendaDesafio2.csproj.Fody.CopyLocal.cache
-D:\Projetos\AgendaDesafio\AgendaDesafio\agendaback\AgendaDesafio2\obj\Debug\net6.0\AgendaDesafio2.csproj.Fody.RuntimeCopyLocal.cache

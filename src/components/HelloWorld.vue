@@ -1,7 +1,7 @@
 <template>
   <div class="hello">
 
-    <h3>Desafio proposto pela Blue Technology utilizando .Net 6 e VueJs.</h3>
+    <h3>Desafio proposto pela Blue utilizando .Net 6 e VueJs.</h3>
     <ul>
       <li>
         <a href="https://github.com/anthonygianni/AgendaDesafio/tree/Development" target="_blank" rel="noopener"><img alt="Vue logo" src="../assets/giticon.png"></a>

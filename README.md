@@ -1,11 +1,29 @@
-# AgendaDesafio
+# agendafront
 
-#Migration
-Criar e atualizar a migration para o BD ser criado.(foi utilizado o SQL)
-Ir no diretorio /agendaback/AgendaDesafio2
-- Add-Migration  "NomeDaMigração"
-- Update-database
+## Project setup
+```
+npm install
+```
 
-#Executando dockercompose
-Ir no diretorio raiz e utilizar:
-docker-compose up
+### Compiles and hot-reloads for development
+```
+npm run serve
+```
+
+### Compiles and minifies for production
+```
+npm run build
+```
+
+### Run your unit tests
+```
+npm run test:unit
+```
+
+### Lints and fixes files
+```
+npm run lint
+```
+
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).

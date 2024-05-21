@@ -103,7 +103,7 @@ export default {
   methods: {
     async getAllItems() {
       try {
-        const response = await axios.get(`http://localhost:5136/api/Agenda`);
+        const response = await axios.get(`http://api-app:5000/api/Agenda`);
         this.items = response.data.value;
         console.log(response.data.value);
       } catch (error) {
@@ -128,7 +128,7 @@ export default {
 
       try {
 
-        const response = await axios.post(`http://localhost:5136/api/Agenda/`, item);
+        const response = await axios.post(`http://api-app:5000/api/Agenda/`, item);
         this.items.push(response.data);
         this.newItem = {};
 
@@ -149,7 +149,7 @@ export default {
       };
 
       try {
-        const response = await axios.put(`http://localhost:5136/api/Agenda/${this.products.id}`, item);
+        const response = await axios.put(`http://api-app:5000/api/Agenda/${this.products.id}`, item);
         console.log('Item atualizado:', response.data);
         this.getAllItems();
       } catch (error) {
@@ -160,7 +160,7 @@ export default {
     async deleteItem(item) {
 
       try {
-        const response = await axios.delete(`http://localhost:5136/api/Agenda/${item.id}`);
+        const response = await axios.delete(`http://api-app:5000/api/Agenda/${item.id}`);
         this.items = this.items.filter(i => i.id !== item.id);
         console.log("Item deletado com sucesso:", response.json());
 

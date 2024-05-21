@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  api-app:
+    build:
+      context: ./agendaback/AgendaDesafio2
+      dockerfile: Dockerfile
+    ports:
+      - "5136:5136"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+
+  vue-app:
+    build:
+      context: ./agendafront
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"
+    depends_on:
+      - api-app

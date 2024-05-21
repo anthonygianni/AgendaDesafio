@@ -6,13 +6,13 @@ services:
       context: ./agendaback/AgendaDesafio2
       dockerfile: Dockerfile
     ports:
-      - "5136:5136"
+      - "5000:5000"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
 
   vue-app:
     build:
-      context: ./agendafront
+      context: ./agendafront2
       dockerfile: Dockerfile
     ports:
       - "8080:80"

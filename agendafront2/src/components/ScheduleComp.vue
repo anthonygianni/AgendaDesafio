@@ -6,17 +6,16 @@
         <div class="input-wrapper ">
           <label for="username">Nome </label>
           <InputText id="username" v-model="newItem.nome" :maxlength="50"  placeholder="Digite um nome (máx. 50 caracteres)" aria-describedby="username-help" />
-          <!-- <small id="username-help">Enter your username to reset your password.</small> -->
-          <small id="nome-help">Deve conter máx de 50 caracteres.</small>
-        </div>
-        <div class="input-wrapper">
-          <label for="username">Email </label>
-          <InputText id="username" v-model="newItem.email" :maxlength="50" placeholder="exemplo@exemplo.com" aria-describedby="username-help" />
           
-          <!-- <small id="username-help">Enter your username to reset your password.</small> -->
+          <small id="username-help">Deve conter máx de 50 caracteres.</small>
         </div>
         <div class="input-wrapper">
-          <label for="username">Telefone </label>
+          <label for="useremail">Email </label>
+          <InputText id="useremail" v-model="newItem.email" :maxlength="50" placeholder="exemplo@exemplo.com" aria-describedby="useremail-help" />
+
+        </div>
+        <div class="input-wrapper">
+          <label for="userphone">Telefone </label>
           <InputMask id="basic"  v-model="newItem.telefone" mask="99-99999-9999" placeholder="99-99999-9999" />
         </div>
         <div class="input-button">
@@ -36,33 +35,37 @@
         <Column field="id" header="ID"></Column>
         <Column field="nome" header="Nome"></Column>
         <Column field="email" header="Email"></Column>
-        <Column field="telefone" mask="99-99999-9999" header="Telefone"></Column>
-        <Column :exportable="false" style="min-width:8rem">
+        <Column field="telefone" header="Telefone"></Column>
+        <Column :exportable="false" style="min-width:8rem;display: auto;">
           <template #body="slotProps">
-            <Button icon="pi pi-pencil" outlined rounded class="mr-2" @click="showModalEditItem(slotProps.data)" />
-            <Button icon="pi pi-trash" outlined rounded severity="danger" @click="deleteItem(slotProps.data)" />
+            <Button icon="pi pi-pencil"  outlined rounded class="mr-2" @click="showModalEditItem(slotProps.data)" />
+            <Button icon="pi pi-trash" style="margin-left: 20px;" outlined rounded severity="danger" @click="deleteItem(slotProps.data)" />
           </template>
         </Column>
       </DataTable>
 
-      <Dialog v-model:visible="visible" modal header="Edit Profile" :style="{ width: '25rem' }">
-        <span class="p-text-secondary block mb-5">Update your information.</span>
-        <div class="flex align-items-center gap-3 mb-3">
-          <label for="username" class="font-semibold w-6rem">Username</label>
+      <Dialog v-model:visible="visible" modal header="Editar Contato" :style="{ width: '25rem' }">
+        <span class="p-text-secondary block mb-5">Editar informações.</span>
+        
+          <div class="flex align-items-center gap-3 mb-3">
+          <label for="username" class="font-semibold w-6rem">Nome </label>
           <InputText id="username" v-model="products.nome" class="flex-auto" autocomplete="off" />
         </div>
-        <div class="flex align-items-center gap-3 mb-5">
-          <label for="email" class="font-semibold w-6rem">Email</label>
+        <div class="flex align-items-center gap-3 mb-3">
+          <label for="email" class="font-semibold w-6rem">Email </label>
           <InputText id="email" v-model="products.email" class="flex-auto" autocomplete="off" />
         </div>
-        <div class="flex align-items-center gap-3 mb-5">
-          <label for="telefone" class="font-semibold w-6rem">Telefone</label>
-          <InputText id="telefone" v-model="products.telefone" class="flex-auto" autocomplete="off" />
+        <div class="flex align-items-center gap-3 mb-3">
+          <label for="telefone" class="font-semibold w-6rem">Telefone </label>
+          <InputText id="telefone" v-model="products.telefone" class="input-field flex-auto telefone-field" autocomplete="off" />
         </div>
-        <div class="flex justify-content-end gap-2">
-          <Button type="button" label="Cancel" severity="secondary" @click="showModalEditItem()"></Button>
-          <Button type="button" label="Save" @click="editItem()"></Button>
+        
+        
+        <div class="flexbuttom justify-content-between align-items-center">
+          <Button type="button" label="Cancel" severity="secondary" @click="hideModalEditItem()" />
+          <Button type="button" label="Save" @click="validateAndAddItem()" />
         </div>
+        
       </Dialog>
     </div>
   </div>
@@ -105,7 +108,7 @@ export default {
   methods: {
     async getAllItems() {
       try {
-        const response = await axios.get(`http://api-app:5000/api/Agenda`);
+        const response = await axios.get(`http://localhost:5136/api/Agenda`);
         this.items = response.data.value;
         console.log(response.data.value);
       } catch (error) {
@@ -120,6 +123,12 @@ export default {
       this.visible = true;
 
     },
+    async hideModalEditItem() {
+
+      this.visible = false;
+      
+
+      },
     async validateAndAddItem() {
       if (this.newItem.nome && this.newItem.email && this.newItem.telefone) {
         if (this.newItem.nome.length <= 50) {
@@ -141,7 +150,7 @@ export default {
 
       try {
 
-        const response = await axios.post(`http://api-app:5000/api/Agenda/`, item);
+        const response = await axios.post(`http://localhost:5136/api/Agenda/`, item);
         this.items.push(response.data);
         this.newItem = {};
 
@@ -162,18 +171,19 @@ export default {
       };
 
       try {
-        const response = await axios.put(`http://api-app:5000/api/Agenda/${this.products.id}`, item);
+        const response = await axios.put(`http://localhost:5136/api/Agenda/${this.products.id}`, item);
         console.log('Item atualizado:', response.data);
         this.getAllItems();
+        this.visible = false;
       } catch (error) {
         console.error('Erro ao atualizar o item:', error);
       }
-      this.visible = false;
+      
     },
     async deleteItem(item) {
 
       try {
-        const response = await axios.delete(`http://api-app:5000/api/Agenda/${item.id}`);
+        const response = await axios.delete(`http://localhost:5136/api/Agenda/${item.id}`);
         this.items = this.items.filter(i => i.id !== item.id);
         console.log("Item deletado com sucesso:", response.json());
 
@@ -247,6 +257,17 @@ h3 {
   margin-top: auto;
 }
 
+.flexbuttom {
+  display: flex;
+}
+
+.justify-content-between {
+  justify-content: space-between;
+}
+
+.telefone-field {
+  width: calc(100% - 8rem); /* Ajuste o valor conforme necessário para alinhar com os outros campos */
+}
 ul {
   list-style-type: none;
   padding: 0;
@@ -255,6 +276,9 @@ ul {
 li {
   display: inline-block;
   margin: 0 10px;
+}
+.mb-3 {
+  margin-bottom: 1rem;
 }
 
 a {

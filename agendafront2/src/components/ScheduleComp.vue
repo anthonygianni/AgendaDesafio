@@ -3,22 +3,24 @@
     <h1>{{ msg }}</h1>
     <div class="container">
       <div class="input-group">
-        <div class="input-wrapper">
+        <div class="input-wrapper ">
           <label for="username">Nome </label>
-          <InputText id="username" v-model="newItem.nome" aria-describedby="username-help" />
+          <InputText id="username" v-model="newItem.nome" :maxlength="50"  placeholder="Digite um nome (máx. 50 caracteres)" aria-describedby="username-help" />
           <!-- <small id="username-help">Enter your username to reset your password.</small> -->
+          <small id="nome-help">Deve conter máx de 50 caracteres.</small>
         </div>
         <div class="input-wrapper">
           <label for="username">Email </label>
-          <InputText id="username" v-model="newItem.email" aria-describedby="username-help" />
+          <InputText id="username" v-model="newItem.email" :maxlength="50" placeholder="exemplo@exemplo.com" aria-describedby="username-help" />
+          
           <!-- <small id="username-help">Enter your username to reset your password.</small> -->
         </div>
         <div class="input-wrapper">
           <label for="username">Telefone </label>
-          <InputMask id="basic" v-model="newItem.telefone" mask="99-99999-9999" placeholder="99-99999-9999" />
+          <InputMask id="basic"  v-model="newItem.telefone" mask="99-99999-9999" placeholder="99-99999-9999" />
         </div>
         <div class="input-button">
-          <Button @click="addItem" label="Salvar" />
+          <Button @click="validateAndAddItem" label="Salvar" />
         </div>
       </div>
     </div>
@@ -117,6 +119,17 @@ export default {
       this.products = { ...data };
       this.visible = true;
 
+    },
+    async validateAndAddItem() {
+      if (this.newItem.nome && this.newItem.email && this.newItem.telefone) {
+        if (this.newItem.nome.length <= 50) {
+          this.addItem();
+        } else {
+          alert('O nome deve ter menos de 50 caracteres.');
+        }
+      } else {
+        alert('Por favor, Verifique se os campos "Nome", "Email" e "Telefone" estão preenchidos e de maneira correta!');
+      }
     },
     async addItem() {
 

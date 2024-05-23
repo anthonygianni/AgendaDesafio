@@ -64,16 +64,16 @@ namespace AgendaDesafio2.Tests
         {
             // Arrange
             var agenda = AgendaTestes.Generate();
-            agendaService.CreateAsync(agenda).Returns(Task.FromResult(agenda));
+            agendaService.CreateAsync(Arg.Any<Agenda>()).Returns(Task.CompletedTask);
 
             // Act
-            var resultado = (ObjectResult)await _controller.CreateAsync(agenda);
+            var actionResult = await _controller.CreateAsync(agenda);
 
             // Assert
-            resultado.StatusCode.Should().Be(StatusCodes.Status201Created);
-            var resultAgenda = resultado.Value as Agenda;
-            resultAgenda.Should().NotBeNull();
-            resultAgenda.Id.Should().Be(agenda.Id);
+            actionResult.Should().BeOfType<OkObjectResult>();
+            var resultado = actionResult as OkObjectResult;
+            resultado.StatusCode.Should().Be(StatusCodes.Status200OK);
+            resultado.Value.Should().Be("Contato criado!");
         }
 
         [Fact]
